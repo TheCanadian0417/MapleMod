@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/leaves",
+  "textures": {
+    "all": "maplemod:blocks/maple_leaves"
+  }
+}

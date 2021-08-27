@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "level=0": {
+      "model": "maplemod:block/syrup_barrel"
+    },
+    "level=1": {
+      "model": "maplemod:block/syrup_barrel_level1"
+    },
+    "level=2": {
+      "model": "maplemod:block/syrup_barrel_level2"
+    },
+    "level=3": {
+      "model": "maplemod:block/syrup_barrel_level3"
+    }
+  }
+}

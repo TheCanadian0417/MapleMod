@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+    "pattern":
+          [
+            "xxx",
+            " y ",
+            " y "
+          ],
+    "key":
+    {
+        "x":
+        {
+            "item": "minecraft:obsidian"
+        },
+
+        "y":
+        {
+            "item": "minecraft:diamond"
+        }
+    },
+    "result":
+    {
+      "item": "maplemod:obsidian_hammer"
+    }
+}

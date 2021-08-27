@@ -1,0 +1,17 @@
+{
+  "item.maplemod.obsidian_hammer": "Obsidian Hammer",
+  "item.maplemod.maple_leaf": "Maple Leaf",
+  "item.maplemod.diamond_shard": "Diamond Shard",
+  "item.maplemod.maple_sap_bucket": "Maple Sap Bucket",
+  "block.maplemod.obsidian_anvil": "Obsidian Anvil",
+  "block.maplemod.syrup_barrel": "Syrup Barrel",
+  "block.maplemod.diamond_tap": "Diamond Tap",
+  "block.maplemod.gold_tap": "Gold Tap",
+  "block.maplemod.iron_tap": "Iron Tap",
+  "block.maplemod.maple_log": "Maple Log",
+  "block.maplemod.maple_leaves": "Maple Leaves",
+  "block.maplemod.maple_planks": "Maple Planks",
+  "block.maplemod.maple_sapling": "Maple Sapling",
+
+  "itemGroup.maplemodTab": "Maple Mod"
+}

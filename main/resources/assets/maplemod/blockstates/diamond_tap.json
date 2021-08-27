@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "maplemod:block/diamond_tap" },
+    "facing=south": { "model": "maplemod:block/diamond_tap", "y": 180 },
+    "facing=west": { "model":  "maplemod:block/diamond_tap",  "y": 270 },
+    "facing=east": { "model":  "maplemod:block/diamond_tap" , "y": 90 }
+  }
+}

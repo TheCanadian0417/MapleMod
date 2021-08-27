@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "maplemod:block/iron_tap" },
+    "facing=south": { "model": "maplemod:block/iron_tap", "y": 180 },
+    "facing=west": { "model":  "maplemod:block/iron_tap",  "y": 270 },
+    "facing=east": { "model":  "maplemod:block/iron_tap" , "y": 90 }
+  }
+}

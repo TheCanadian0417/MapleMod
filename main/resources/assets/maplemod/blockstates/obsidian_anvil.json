@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "facing=north": { "model": "maplemod:block/obsidian_anvil" , "y": 270 },
+    "facing=south": { "model": "maplemod:block/obsidian_anvil", "y": 90 },
+    "facing=west": { "model":  "maplemod:block/obsidian_anvil",  "y": 180 },
+    "facing=east": { "model":  "maplemod:block/obsidian_anvil" }
+  }
+}
