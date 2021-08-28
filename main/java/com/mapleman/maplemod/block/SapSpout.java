@@ -5,7 +5,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
+import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -19,6 +21,8 @@ import net.minecraft.world.World;
 
 public class SapSpout extends Block
 {
+
+    public static final IntegerProperty POURING = BlockStateProperties.STAGE_0_1;
 
     private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 
@@ -116,7 +120,6 @@ public class SapSpout extends Block
     }
 
 
-
     @SuppressWarnings("deprecation")
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit)
@@ -124,16 +127,22 @@ public class SapSpout extends Block
         BlockPos blockUnder = pos.down();
         BlockState stateBarrel = worldIn.getBlockState(blockUnder);
         ItemStack itemstack = player.getHeldItem(handIn);
+        BlockState tap = worldIn.getBlockState(pos);
+        BlockPos tapPos = pos;
+
+
         if (itemstack.isEmpty())
         {
             if(stateBarrel.isIn(ModBlocks.SYRUP_BARREL.get()))
             {
-                worldIn.setBlockState(pos, state.with(SyrupBarrel.LEVEL, 1), 1);
-
+                worldIn.setBlockState(blockUnder,stateBarrel.with(SyrupBarrel.LEVEL, 1), 1);
+                worldIn.setBlockState(tapPos, tap.with(SapSpout.POURING, 1), 1);
             }
             return ActionResultType.PASS;
         } else {
             return ActionResultType.PASS;
         }
     }
+
+
 }
