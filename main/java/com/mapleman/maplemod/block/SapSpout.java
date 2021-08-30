@@ -8,6 +8,7 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -17,12 +18,17 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+
+import java.util.Random;
 
 
 public class SapSpout extends Block
 {
 
-    public static final IntegerProperty POURING = BlockStateProperties.STAGE_0_1;
+
+
+    public static final IntegerProperty STAGE = BlockStateProperties.STAGE_0_1;
 
     private static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
 
@@ -61,6 +67,7 @@ public class SapSpout extends Block
     public SapSpout(Properties properties)
     {
         super(properties);
+        this.setDefaultState(this.stateContainer.getBaseState().with(STAGE, Integer.valueOf(0)));
     }
 
     @SuppressWarnings("deprecation")
@@ -95,6 +102,7 @@ public class SapSpout extends Block
         return state.with(FACING, rot.rotate(state.get(FACING)));
     }
 
+
     @SuppressWarnings("deprecation")
     @Override
     public BlockState mirror(BlockState state, Mirror mirrorIn)
@@ -105,7 +113,7 @@ public class SapSpout extends Block
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder)
     {
-        builder.add(FACING);
+        builder.add(FACING, STAGE);
     }
 
     @SuppressWarnings("deprecation")
@@ -119,6 +127,12 @@ public class SapSpout extends Block
         return stateOpposite.isIn(ModBlocks.MAPLE_LOG.get());
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand)
+    {
+        super.tick(state, worldIn, pos, rand);
+    }
 
     @SuppressWarnings("deprecation")
     @Override
@@ -127,8 +141,10 @@ public class SapSpout extends Block
         BlockPos blockUnder = pos.down();
         BlockState stateBarrel = worldIn.getBlockState(blockUnder);
         ItemStack itemstack = player.getHeldItem(handIn);
+        Random rand = new Random();
         BlockState tap = worldIn.getBlockState(pos);
         BlockPos tapPos = pos;
+        Block barrel = ModBlocks.SYRUP_BARREL.get();
 
 
         if (itemstack.isEmpty())
@@ -136,7 +152,13 @@ public class SapSpout extends Block
             if(stateBarrel.isIn(ModBlocks.SYRUP_BARREL.get()))
             {
                 worldIn.setBlockState(blockUnder,stateBarrel.with(SyrupBarrel.LEVEL, 1), 1);
-                worldIn.setBlockState(tapPos, tap.with(SapSpout.POURING, 1), 1);
+                worldIn.setBlockState(tapPos, tap.with(SapSpout.STAGE, 1), 1);
+                worldIn.getPendingBlockTicks().scheduleTick(pos, barrel, 5000);
+                if (!worldIn.getPendingBlockTicks().isTickPending(pos, barrel))
+                {
+                    worldIn.setBlockState(blockUnder,stateBarrel.with(SyrupBarrel.LEVEL, 2), 1);
+                }
+                return ActionResultType.SUCCESS;
             }
             return ActionResultType.PASS;
         } else {
