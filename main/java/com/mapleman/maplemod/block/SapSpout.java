@@ -1,6 +1,8 @@
 package com.mapleman.maplemod.block;
 
+import com.mapleman.maplemod.tileentity.TapTile;
 import net.minecraft.block.*;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -9,7 +11,10 @@ import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityMerger;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.*;
+import net.minecraft.util.datafix.fixes.TileEntityId;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -20,6 +25,7 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import java.util.Optional;
 import java.util.Random;
 
 
@@ -127,6 +133,18 @@ public class SapSpout extends Block
         return stateOpposite.isIn(ModBlocks.MAPLE_LOG.get());
     }
 
+    @Override
+    public boolean hasTileEntity(BlockState state)
+    {
+        return true;
+    }
+
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world)
+    {
+        return new TapTile();
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand)
@@ -165,6 +183,7 @@ public class SapSpout extends Block
             return ActionResultType.PASS;
         }
     }
+    
 
 
 }
